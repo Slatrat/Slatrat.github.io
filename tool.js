@@ -1,4 +1,3 @@
-
 function generateCode() {
     let hasError = false;
 
@@ -94,6 +93,7 @@ function generateCode() {
     const letterMap = fontMap[font];
     
     let currentX = 0;
+    let items = [];
     for (let letter of textInput) {
         if (letterMap[letter]) {
             letterMap[letter].forEach(pos => {
@@ -102,13 +102,19 @@ function generateCode() {
                 const posX = startX + (relativeX * Math.cos(orientationRadians)) - (relativeY * Math.sin(orientationRadians));
                 const posY = startY;
                 const posZ = startZ + (relativeX * Math.sin(orientationRadians)) + (relativeY * Math.cos(orientationRadians));
-                code += `CreateItem("${itemFileName}", "${posX} ${posY} ${posZ}");
-`;
+                items.push({
+                    name: itemFileName,
+                    pos: [posX, posY, posZ],
+                    ypr: [orientationDegrees, 0, 0],
+                    scale: 1.0,
+                    enableCEPersistency: 0
+                });
             });
             currentX += (letterMap[letter].reduce((max, pos) => pos[0] > max ? pos[0] : max, 0) + 1) * itemWidthMeters + spacing;
         }
     }
     
+    code = JSON.stringify(items, null, 4);
     document.getElementById('generatedCode').value = code;
 }
 
