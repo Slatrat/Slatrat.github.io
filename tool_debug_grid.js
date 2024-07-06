@@ -1,4 +1,3 @@
-
 function generateCode() {
     let hasError = false;
 
@@ -104,11 +103,19 @@ function generateCode() {
                 const posY = startY;
                 const posZ = startZ + (relativeX * Math.sin(orientationRadians)) + (relativeY * Math.cos(orientationRadians));
                 items.push({
-                    name: itemFileName,
-                    pos: [posX, posY, posZ],
-                    ypr: [orientationDegrees, 0, 0],
-                    scale: 1.0,
-                    enableCEPersistency: 0
+                    "name": itemFileName,
+                    "pos": [
+                        posX,
+                        posY,
+                        posZ
+                    ],
+                    "ypr": [
+                        orientationDegrees,
+                        0,
+                        0
+                    ],
+                    "scale": 1.0,
+                    "enableCEPersistency": 0
                 });
                 console.log(`Added item at position: X=${posX}, Y=${posY}, Z=${posZ}`);
             });
